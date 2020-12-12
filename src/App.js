@@ -17,27 +17,46 @@ const App = () => {
 
   const getPlaceholders = (arr) => {
     const x = [...arr.matchAll(/\d/g)]
-    setN(x)
+    setN(
+      x.map((item) => {
+        const findPlaceholders = [...arr.match(item[0])]
+        const itemObj = {
+          placeholder: findPlaceholders[0],
+          index: item.index,
+        }
+        return itemObj
+      })
+    )
   }
 
   const getWordMatches = (arr) => {
     const words = arr.map((obj) => {
-      n.forEach((item) => {
-        const char = obj.word.charAt(item.index)
-        console.log('char', char)
-        const regx = new RegExp(`${char}`, 'g')
-        const charCount = [...obj.word.matchAll(regx)]
-        console.log('charCount', charCount)
-      })
+      console.log('word', obj.word, 'n', n)
+      let testWord = input
+
+      for (const c in n) {
+        console.log('c', c, 'n[c]', n[c])
+        let charWord = obj.word.charAt(n[c].index)
+        console.log('char', charWord)
+        let charInput = testWord.charAt(n[c].index)
+        console.log('charInput', charInput)
+        console.log('----------------------------')
+      }
+
       return obj.word
     })
     setM((state) => [...state, ...words])
   }
-  console.log('n', n)
-
+  /*  console.log('n', n)
+ ["1", index: 0, input: "1a1122n", groups: undefined]
+ ["1", index: 2, input: "1a1122n", groups: undefined]
+ ["1", index: 3, input: "1a1122n", groups: undefined]
+ ["2", index: 4, input: "1a1122n", groups: undefined]
+ ["2", index: 5, input: "1a1122n", groups: undefined]
+ */
   console.log('m', m)
 
-  const compareWords = (arr1, arr2) => {
+  /*   const compareWords = (arr1, arr2) => {
     arr2.map((obj) => {
       obj.word.split('').forEach((targetLetter, i) => {
         arr1.split('').map((inputLetter, index) => {
@@ -71,13 +90,13 @@ const App = () => {
       })
       return obj.word
     })
-  }
+  } */
 
   console.log('results', results)
 
-  const handleClick = () => {
+  /*   const handleClick = () => {
     compareWords(input, stringArray)
-  }
+  } */
 
   const handleClick2 = () => {
     getPlaceholders(input)
@@ -101,7 +120,7 @@ const App = () => {
       </div>
 
       <br />
-      <button onClick={handleClick}>compare</button>
+      {/*     <button onClick={handleClick}>compare</button> */}
       <br />
 
       {JSON.stringify(results)}
