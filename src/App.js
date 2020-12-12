@@ -12,17 +12,25 @@ const stringArray = [
 const App = () => {
   const [results, setResults] = useState([])
   const [n, setN] = useState([])
+  const [m, setM] = useState([])
   const input = '1a1122n'
 
-  let m
   let words = []
   const getMatches = (arr1, arr2) => {
     const x = [...arr1.matchAll(/\d/g)]
-    console.log('x', x)
     setN(x) // this is not doing what I want
-    m = arr2.forEach((word) => words.push(word))
+    arr2.map((item) => {
+      console.log('word', item)
+      /* How do I get these all into the 'm' array?
+    {word: "bassoon", score: 371}
+    {word: "barroon", score: 371}
+    {word: "babboon", score: 371}
+      */
+    })
+    console.log('m', m)
+
     //[...arr2.matchAll()]
-    return n
+    // return n
   }
   console.log('n', n)
   const compareWords = (arr1, arr2) => {
@@ -77,7 +85,12 @@ const App = () => {
       {JSON.stringify(n)}
 
       <br />
-      {JSON.stringify(words)}
+      <div>
+        {words.map((word) => (
+          <div> {word} </div>
+        ))}
+      </div>
+
       <br />
       <button onClick={handleClick}>compare</button>
       <br />
