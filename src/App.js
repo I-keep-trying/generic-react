@@ -29,74 +29,39 @@ const App = () => {
     )
   }
 
+  const filter1 = (arr1, arr2) => {
+    console.log('n', n[0])
+    for (const c in n) {
+      console.log('c', c, 'n[c]', n[c])
+      let charWord = arr2.charAt(n[c].index)
+      const r = new RegExp(`${charWord}`, 'g')
+      let z = arr2.match(r)
+      let charInput = arr1.charAt(n[c].index)
+      const rr = new RegExp(`${charInput}`, 'g')
+      let q = arr1.match(rr)
+      console.log('z', z, 'q', q)
+      if (z.length !== q.length) {
+        console.log(
+          'HELP PLEASE SOMEBODY HOW THE F DO I FILTER OUT THE WRONG WORD'
+        )
+      }
+      console.log('----------------------------')
+    }
+  }
+
   const getWordMatches = (arr) => {
     const words = arr.map((obj) => {
       console.log('word', obj.word, 'n', n)
-      let testWord = input
-
-      for (const c in n) {
-        console.log('c', c, 'n[c]', n[c])
-        let charWord = obj.word.charAt(n[c].index)
-        console.log('char', charWord)
-        let charInput = testWord.charAt(n[c].index)
-        console.log('charInput', charInput)
-        console.log('----------------------------')
-      }
+      filter1(input, obj.word)
 
       return obj.word
     })
     setM((state) => [...state, ...words])
   }
-  /*  console.log('n', n)
- ["1", index: 0, input: "1a1122n", groups: undefined]
- ["1", index: 2, input: "1a1122n", groups: undefined]
- ["1", index: 3, input: "1a1122n", groups: undefined]
- ["2", index: 4, input: "1a1122n", groups: undefined]
- ["2", index: 5, input: "1a1122n", groups: undefined]
- */
+
   console.log('m', m)
 
-  /*   const compareWords = (arr1, arr2) => {
-    arr2.map((obj) => {
-      obj.word.split('').forEach((targetLetter, i) => {
-        arr1.split('').map((inputLetter, index) => {
-          if (!obj.word.includes(inputLetter) && i === index) {
-            let p = [...input.matchAll(inputLetter)]
-            console.log('p', p)
-            const inputCount = input.split(index).length - 1
-            const letterCount = obj.word.split(obj.word.charAt(index)) - 1
-
-            if (inputCount !== letterCount) {
-              setResults(
-                stringArray.filter((result) => {
-                  // console.log('setResults filter', result)
-                  // WHY WHY WHY WHY why is this happening when the condition is not met??????????????????
-                  // I know why now, because it's looping and some loops DO meet the condition
-                  return result === obj.word ? null : result
-                })
-              )
-            }
-
-            const testWord = input.replaceAll(inputLetter, targetLetter)
-            console.log('testWord', testWord)
-            if (input === obj.word) {
-              console.log('testWord === obj.word')
-            }
-
-            console.log('---------------------')
-          }
-          return inputLetter
-        })
-      })
-      return obj.word
-    })
-  } */
-
   console.log('results', results)
-
-  /*   const handleClick = () => {
-    compareWords(input, stringArray)
-  } */
 
   const handleClick2 = () => {
     getPlaceholders(input)
@@ -115,12 +80,11 @@ const App = () => {
       <br />
       <div>
         {m.map((word) => (
-          <div> {word} </div>
+          <div>m word {word} </div>
         ))}
       </div>
 
       <br />
-      {/*     <button onClick={handleClick}>compare</button> */}
       <br />
 
       {JSON.stringify(results)}
