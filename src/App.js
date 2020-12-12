@@ -15,22 +15,21 @@ const App = () => {
   const [m, setM] = useState([])
   const input = '1a1122n'
 
-  const getPlaceholders = (arr1) => {
-    const x = [...arr1.matchAll(/\d/g)]
-    setN(x) // this is not doing what I want
+  const getPlaceholders = (arr) => {
+    const x = [...arr.matchAll(/\d/g)]
+    setN(x)
   }
 
-  const getWordMatches = (arr2) => {
-    const words = arr2.map((item) => {
-      console.log('word', item)
-      console.log('n inside words map', n)
-
-      return item.word
-      /* How do I get these all into the 'm' array?
-    {word: "bassoon", score: 371}
-    {word: "barroon", score: 371}
-    {word: "babboon", score: 371}
-      */
+  const getWordMatches = (arr) => {
+    const words = arr.map((obj) => {
+      n.forEach((item) => {
+        const char = obj.word.charAt(item.index)
+        console.log('char', char)
+        const regx = new RegExp(`${char}`, 'g')
+        const charCount = [...obj.word.matchAll(regx)]
+        console.log('charCount', charCount)
+      })
+      return obj.word
     })
     setM((state) => [...state, ...words])
   }
