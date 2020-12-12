@@ -15,24 +15,29 @@ const App = () => {
   const [m, setM] = useState([])
   const input = '1a1122n'
 
-  let words = []
-  const getMatches = (arr1, arr2) => {
+  const getPlaceholders = (arr1) => {
     const x = [...arr1.matchAll(/\d/g)]
     setN(x) // this is not doing what I want
-    arr2.map((item) => {
+  }
+
+  const getWordMatches = (arr2) => {
+    const words = arr2.map((item) => {
       console.log('word', item)
+      console.log('n inside words map', n)
+
+      return item.word
       /* How do I get these all into the 'm' array?
     {word: "bassoon", score: 371}
     {word: "barroon", score: 371}
     {word: "babboon", score: 371}
       */
     })
-    console.log('m', m)
-
-    //[...arr2.matchAll()]
-    // return n
+    setM((state) => [...state, ...words])
   }
   console.log('n', n)
+
+  console.log('m', m)
+
   const compareWords = (arr1, arr2) => {
     arr2.map((obj) => {
       obj.word.split('').forEach((targetLetter, i) => {
@@ -76,17 +81,22 @@ const App = () => {
   }
 
   const handleClick2 = () => {
-    getMatches(input, stringArray)
+    getPlaceholders(input)
+  }
+
+  const handleClick3 = () => {
+    getWordMatches(stringArray)
   }
 
   return (
     <div className="App">
       <button onClick={handleClick2}>get matches</button>
+      <button onClick={handleClick3}>get words</button>
       {JSON.stringify(n)}
 
       <br />
       <div>
-        {words.map((word) => (
+        {m.map((word) => (
           <div> {word} </div>
         ))}
       </div>
